@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D 產品展示 | 宏恩資訊科技</title>
     
-    <!-- 引入 Google <model-viewer> 元件 -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     
     <style>
         :root {
-            /* 你可以將這裡的顏色換成公司的企業識別色 */
-            --primary-color: #0056b3; 
-            --bg-color: #f8f9fa;
-            --text-color: #333333;
+            /* 調整版面主題色彩 */
+            --header-footer-bg: #2d1b4e; /* 深紫色背景 */
+            --main-bg: #1e1e1e; /* 柔和的黑 */
+            --text-light: #ffffff; /* 白色文字 */
+            --link-hover: #d1b3ff; /* 連結滑過時的淺紫色 */
         }
 
         body {
@@ -23,14 +23,17 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--main-bg);
         }
 
-        /* 頂部導覽列 (Logo 與公司名稱) */
+        /* 頂部與底部共用深紫背景與白字 */
+        header, footer {
+            background-color: var(--header-footer-bg);
+            color: var(--text-light);
+        }
+
         header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             padding: 15px 30px;
             display: flex;
             align-items: center;
@@ -43,10 +46,9 @@
             align-items: center;
             gap: 15px;
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--text-light);
         }
 
-        /* Logo 圖片大小設定 */
         .brand img {
             height: 45px; 
             width: auto;
@@ -59,26 +61,21 @@
             letter-spacing: 1px;
         }
 
-        /* 3D 模型展示主區域 */
         main {
             flex-grow: 1;
             position: relative;
-            /* 給模型一個稍微對比的底色，讓物件更突出 */
-            background-color: #e9ecef; 
+            background-color: var(--main-bg); /* 中間展示區柔和的黑 */
         }
 
         model-viewer {
             width: 100%;
             height: 100%;
-            /* 隱藏載入前的預設海報背景 */
             --poster-color: transparent;
         }
 
-        /* 底部聯絡資訊 */
         footer {
-            background-color: #ffffff;
             padding: 20px 30px;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -99,17 +96,23 @@
             gap: 8px;
         }
 
+        /* 將聯絡資訊的連結也改為白色 */
         .contact-item a {
-            color: var(--primary-color);
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
+            transition: color 0.2s;
         }
 
         .contact-item a:hover {
+            color: var(--link-hover);
             text-decoration: underline;
         }
 
-        /* 手機版響應式設計 */
+        .copyright {
+            color: #aaaaaa;
+        }
+
         @media (max-width: 768px) {
             header {
                 padding: 15px;
@@ -133,36 +136,26 @@
 </head>
 <body>
 
-    <!-- 頁首：Logo 與公司名稱 -->
     <header>
         <a href="https://www.hongentec.com/" class="brand" target="_blank">
-            <!-- 請將 Logo.png 替換成你公司實際的 Logo 圖檔路徑 -->
-            <img src="Logo.png" alt="宏恩資訊科技 Logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="宏恩資訊科技 Logo" onerror="this.style.display='none'">
             <h1>宏恩資訊科技</h1>
         </a>
     </header>
 
-    <!-- 主內容區：3D 模型展示 -->
     <main>
-        <!-- 
-          src: 替換為你的 .glb 模型檔案
-          auto-rotate: 讓模型自動緩慢旋轉
-          camera-controls: 允許客戶用滑鼠/手指控制視角與縮放
-          ar: 在支援的設備(手機)上顯示 AR 擴增實境按鈕
-          shadow-intensity: 產生底部陰影增加真實感
-        -->
+        <!-- 修改 orientation 屬性來轉正模型 (X Y Z) -->
         <model-viewer 
-            src="UHF-6-5-2.glb" 
+            src="your_model.glb" 
             alt="宏恩資訊科技 3D 產品展示"
             auto-rotate 
             camera-controls 
             ar 
             shadow-intensity="1"
-            orientation="0 -90deg 0"> <!-- 加入這一行來校正座Y標軸 -->>
+            orientation="0 -95deg 0">
         </model-viewer>
     </main>
 
-    <!-- 頁尾：聯絡資訊 -->
     <footer>
         <div class="contact-info">
             <div class="contact-item">
@@ -175,7 +168,7 @@
                 📍 新竹市東區高峰里高翠路162巷55弄9號
             </div>
         </div>
-        <div style="color: #888;">
+        <div class="copyright">
             &copy; 2026 HongEn. All Rights Reserved.
         </div>
     </footer>
